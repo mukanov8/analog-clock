@@ -1,18 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles/index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import defaultTheme from './theme'
-import { ThemeProvider } from 'styled-components'
 import { RecoilRoot } from 'recoil'
+import GlobalStyle from './themes/globalStyle'
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <ThemeProvider theme={defaultTheme}>
-        <App />
-      </ThemeProvider>
+      <GlobalStyle />
+      <App />
     </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
