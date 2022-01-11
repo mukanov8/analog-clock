@@ -1,9 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  TIME_DEGREE_OFFSET,
-  HOUR_LABELS,
-} from '../constants/analog-clock.constant'
+import { HOUR_LABELS } from '../constants/analog-clock.constant'
+import { calculateHourLabelDegree, calculateTickLabelDegree } from '../helpers/analog-clock.helper'
 
 export interface AnalogClockBaseProps {
   baseColor: string
@@ -18,20 +16,17 @@ const AnalogClockBase: React.FC<AnalogClockBaseProps> = ({
   showNumbers,
   size,
   children,
+  ...props
 }) => {
   return (
-    <AnalogClockBaseWrapper
-      size={size}
-      baseColor={baseColor}
-      labelColor={labelColor}
-    >
+    <AnalogClockBaseWrapper size={size} baseColor={baseColor} labelColor={labelColor} {...props}>
       <AnalogClockBaseCenter color={labelColor} />
 
-      {/* tick labels */}
+      {/* tick labels, i.e. lines on a clock */}
       {Array.from(Array(60)).map((_, index) => (
         <TickLabel
           isBig={index % 5 === 0}
-          degree={index * 6}
+          degree={calculateTickLabelDegree(index)}
           color={labelColor}
           key={index.toString()}
           offset={size / 2 - 20}
@@ -43,13 +38,14 @@ const AnalogClockBase: React.FC<AnalogClockBaseProps> = ({
         HOUR_LABELS.map((label, index) => (
           <HourLabel
             key={label.toString() + index.toString()}
-            degreeIndex={index}
+            degree={calculateHourLabelDegree(index)}
             color={labelColor}
             offset={size / 2 - 50}
           >
             <span>{label}</span>
           </HourLabel>
         ))}
+
       {children}
     </AnalogClockBaseWrapper>
   )
@@ -92,12 +88,11 @@ const TickLabel = styled.div<{
   background: ${({ color }) => color};
 
   transform-origin: center;
-  transform: ${({ degree, offset }) =>
-    `rotate(${degree}deg) translateX(${offset}px)`};
+  transform: ${({ degree, offset }) => `rotate(${degree}deg) translateX(${offset}px)`};
 `
 
 const HourLabel = styled.div<{
-  degreeIndex: number
+  degree: number
   color: string
   offset: number
 }>`
@@ -106,16 +101,12 @@ const HourLabel = styled.div<{
   color: ${({ color }) => color};
 
   transform-origin: center;
-  transform: ${({ degreeIndex, offset }) =>
-    `rotate(${
-      degreeIndex * 30 - TIME_DEGREE_OFFSET
-    }deg) translateX(${offset}px)`};
+  transform: ${({ degree, offset }) => `rotate(${degree}deg) translateX(${offset}px)`};
 
   span {
     font-size: 32px;
     font-weight: 500;
-    transform: ${({ degreeIndex }) =>
-      `rotate(${TIME_DEGREE_OFFSET - degreeIndex * 30}deg)`};
+    transform: ${({ degree }) => `rotate(${-degree}deg)`};
   }
 `
 

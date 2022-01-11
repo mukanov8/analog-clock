@@ -5,12 +5,15 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import defaultTheme from './theme'
 import { ThemeProvider } from 'styled-components'
+import { RecoilRoot } from 'recoil'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={defaultTheme}>
-      <App />
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={defaultTheme}>
+        <App />
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 )

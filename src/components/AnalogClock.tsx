@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import AnalogClockBase, { AnalogClockBaseProps } from './AnalogClockBase'
-import { TIME_DEGREE_OFFSET } from '../constants/analog-clock.constant'
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
+import {
+  clockHandsDegreeReadOnlyState,
+  dateState,
+  digitalTimeReadOnlyState,
+} from '../stores/analog-clock.store'
+import ReactTooltip from 'react-tooltip'
 
 interface AnalogClockProps {
   baseOptions: AnalogClockBaseProps
@@ -12,51 +18,50 @@ interface AnalogClockProps {
   }
 }
 
-const AnalogClock: React.FC<AnalogClockProps> = ({
-  baseOptions,
-  handColors,
-}) => {
-  const currentDate = new Date()
-
-  const [hourDegree, setHourDegree] = useState(
-    currentDate.getHours() * 30 + currentDate.getMinutes() / 2
-  )
-  const [minuteDegree, setMinuteDegree] = useState(
-    currentDate.getMinutes() * 6 + currentDate.getSeconds() / 12
-  )
-  const [secondDegree, setSecondDegree] = useState(currentDate.getSeconds() * 6)
+const AnalogClock: React.FC<AnalogClockProps> = ({ baseOptions, handColors, ...props }) => {
+  const setDate = useSetRecoilState(dateState)
+  const resetDate = useResetRecoilState(dateState)
+  const clockHandsDegree = useRecoilValue(clockHandsDegreeReadOnlyState)
+  const digitalTime = useRecoilValue(digitalTimeReadOnlyState)
 
   useEffect(() => {
-    setInterval(() => {
-      const newDate = new Date()
-      setSecondDegree(newDate.getSeconds() * 6)
-      setMinuteDegree(newDate.getMinutes() * 6 + newDate.getSeconds() / 12)
-      setHourDegree(newDate.getHours() * 30 + newDate.getMinutes() / 2)
+    const clockInterval = setInterval(() => {
+      setDate(new Date())
     }, 1000)
     return () => {
-      clearInterval()
+      clearInterval(clockInterval)
+      resetDate()
     }
-  })
+  }, [])
 
   return (
-    <AnalogClockWrapper>
-      <AnalogClockBase {...baseOptions}>
+    <AnalogClockWrapper {...props}>
+      <AnalogClockBase {...baseOptions} data-tip data-for="analog-clock-tooltip">
         <HourHand
-          degree={hourDegree - TIME_DEGREE_OFFSET}
+          degree={clockHandsDegree.hourHandDegree}
           color={handColors.hour}
           length={baseOptions.size / 2 - 100}
         />
         <MinuteHand
-          degree={minuteDegree - TIME_DEGREE_OFFSET}
+          degree={clockHandsDegree.minuteHandDegree}
           color={handColors.minute}
           length={baseOptions.size / 2 - 60}
         />
         <SecondHand
-          degree={secondDegree - TIME_DEGREE_OFFSET}
+          degree={clockHandsDegree.secondHandDegree}
           color={handColors.second}
           length={baseOptions.size / 2 - 10}
         />
       </AnalogClockBase>
+      <ReactTooltip
+        id="analog-clock-tooltip"
+        aria-haspopup="true"
+        place="right"
+        type="dark"
+        effect="float"
+      >
+        {digitalTime}
+      </ReactTooltip>
     </AnalogClockWrapper>
   )
 }
@@ -76,16 +81,11 @@ const HourHand = styled.div<{ degree: number; color: string; length: number }>`
   border-radius: 0 5px 5px 0;
 
   transform-origin: center;
-  transform: ${({ degree, length }) =>
-    `rotate(${degree}deg) translateX(${length / 2}px)`};
+  transform: ${({ degree, length }) => `rotate(${degree}deg) translateX(${length / 2}px)`};
   transition: transform linear 0.5s;
 `
 
-const MinuteHand = styled.div<{
-  degree: number
-  color: string
-  length: number
-}>`
+const MinuteHand = styled.div<{ degree: number; color: string; length: number }>`
   position: absolute;
   width: ${({ length }) => `${length}px`};
   height: 10px;
@@ -93,16 +93,11 @@ const MinuteHand = styled.div<{
   border-radius: 0 5px 5px 0;
 
   transform-origin: center;
-  transform: ${({ degree, length }) =>
-    `rotate(${degree}deg) translateX(${length / 2}px)`};
+  transform: ${({ degree, length }) => `rotate(${degree}deg) translateX(${length / 2}px)`};
   transition: transform linear 0.5s;
 `
 
-const SecondHand = styled.div<{
-  degree: number
-  color: string
-  length: number
-}>`
+const SecondHand = styled.div<{ degree: number; color: string; length: number }>`
   position: absolute;
   width: ${({ length }) => `${length}px`};
   height: 5px;
@@ -110,8 +105,7 @@ const SecondHand = styled.div<{
   border-radius: 0 5px 5px 0;
 
   transform-origin: center;
-  transform: ${({ degree, length }) =>
-    `rotate(${degree}deg) translateX(${length / 3}px)`};
+  transform: ${({ degree, length }) => `rotate(${degree}deg) translateX(${length / 3}px)`};
   transition: transform linear 1s;
 `
 

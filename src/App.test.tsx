@@ -4,6 +4,6 @@ import App from './App'
 
 test('renders learn react link', () => {
   render(<App />)
-  const linkElement = screen.getByText(/app/i)
+  const linkElement = screen.getAllByTestId('analog-clock')
   expect(linkElement).toBeInTheDocument()
 })

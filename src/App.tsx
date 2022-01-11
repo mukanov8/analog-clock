@@ -4,6 +4,7 @@ import AnalogClock from './components/AnalogClock'
 import { DEFAULT_CLOCK_OPTIONS } from './constants/analog-clock.constant'
 
 // you can use custom styling options
+
 // const CLOCK_OPTIONS = {
 //   baseOptions: {
 //     baseColor: '#aaaaaa',
@@ -21,7 +22,7 @@ import { DEFAULT_CLOCK_OPTIONS } from './constants/analog-clock.constant'
 const App = () => {
   return (
     <MainWrapper>
-      <AnalogClock {...DEFAULT_CLOCK_OPTIONS} />
+      <AnalogClock data-testid="analog-clock" {...DEFAULT_CLOCK_OPTIONS} />
     </MainWrapper>
   )
 }
