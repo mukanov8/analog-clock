@@ -12,7 +12,7 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
-    '@typescript-eslint/no-use-before-define': 'error',
+    '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-var-requires': 'warn',
     'no-duplicate-imports': 'error',
     'no-multi-spaces': 'error',

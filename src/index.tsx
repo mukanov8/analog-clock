@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom'
 import './styles/index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import defaultTheme from './theme'
+import { ThemeProvider } from 'styled-components'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={defaultTheme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
