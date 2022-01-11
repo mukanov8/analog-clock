@@ -17,7 +17,7 @@ import { DEFAULT_CLOCK_OPTIONS } from './constants/analog-clock.constant'
 //     minute: '#459cff',
 //     hour: '#446aaa',
 //   },
-// };
+// }
 
 const App = () => {
   return (
