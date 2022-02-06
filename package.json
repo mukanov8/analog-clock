@@ -1,24 +1,28 @@
 {
-  "name": "analog-clock",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-simple-analog-clock",
+  "version": "0.1.2",
+  "description": "A simple analog clock component for React",
+  "private": false,
+  "authors": [
+    "Ayan Mukanov <mukanov.ayan@gmail.com> (https://github.com/mukanov8)"
+  ],
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "eslint": "^7.19.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.15",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "eslint": "^8.8.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.0",
     "react-tooltip": "^4.2.21",
-    "recoil": "^0.5.2",
+    "recoil": "^0.6.1",
     "styled-components": "^5.3.3",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "typescript": "^4.5.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -47,9 +51,26 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.19",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
-    "eslint-plugin-unused-imports": "^1.1.2"
-  }
+    "@types/styled-components": "^5.1.22",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
+    "eslint-plugin-unused-imports": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mukanov8/analog-clock/"
+  },
+  "homepage": "https://analog-clock-demo.netlify.app/",
+  "keywords": [
+    "react",
+    "react",
+    "clock",
+    "analog",
+    "analog clock"
+  ],
+  "bugs": {
+    "url": "https://github.com/mukanov8/analog-clock/issues"
+  },
+  "npmName": "react-simple-analog-clock",
+  "license": "MIT"
 }
