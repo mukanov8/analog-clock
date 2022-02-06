@@ -1,7 +1,11 @@
 {
-  "name": "analog-clock",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-simple-analog-clock",
+  "version": "0.1.2",
+  "description": "A simple analog clock component for React",
+  "private": false,
+  "authors": [
+    "Ayan Mukanov <mukanov.ayan@gmail.com> (https://github.com/mukanov8)"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -51,5 +55,22 @@
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint-plugin-unused-imports": "^1.1.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mukanov8/analog-clock/"
+  },
+  "homepage": "https://analog-clock-demo.netlify.app/",
+  "keywords": [
+    "react",
+    "react",
+    "clock",
+    "analog",
+    "analog clock"
+  ],
+  "bugs": {
+    "url": "https://github.com/mukanov8/analog-clock/issues"
+  },
+  "npmName": "react-simple-analog-clock",
+  "license": "MIT"
 }
